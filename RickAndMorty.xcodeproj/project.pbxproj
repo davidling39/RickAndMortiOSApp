@@ -94,8 +94,8 @@
 		C27CCA5C298943A200C16329 /* DataTypes */ = {
 			isa = PBXGroup;
 			children = (
-				C2269C8C2988DE30000D8F53 /* RMLocation.swift */,
 				C2269C8E2988DE46000D8F53 /* RMCharacter.swift */,
+				C2269C8C2988DE30000D8F53 /* RMLocation.swift */,
 				C2269C902988DE4E000D8F53 /* RMEpisode.swift */,
 				C27CCA5429892DD200C16329 /* RMOrigin.swift */,
 				C27CCA5629892E4300C16329 /* RMSingleLocation.swift */,

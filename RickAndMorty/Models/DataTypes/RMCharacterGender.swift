@@ -10,5 +10,15 @@ import Foundation
 enum RMCharacterGender: String, Codable {
     case male = "Male"
     case female = "Female"
-    case `unknown` = "Unknown"
+    case genderless = "Genderless"
+    case `unknown` = "unknown"
+    
+    var text: String {
+        switch self {
+        case .male, .female, .genderless:
+            return rawValue
+        case .unknown:
+            return "Unknown"
+        }
+    }
 }
