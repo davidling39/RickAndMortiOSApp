@@ -11,7 +11,7 @@ import Foundation
 final class RMService {
     static let shared = RMService()
     
-    private init(){}
+    private init() {}
     
     enum RMServiceError: Error {
         case FailedToCreateRequest
@@ -52,7 +52,9 @@ final class RMService {
     }
     
     private func request(from rmRequest: RMRequest) -> URLRequest? {
-        guard let url = rmRequest.url else { return nil }
+        guard let url = rmRequest.url else {
+            return nil
+        }
         
         var request = URLRequest(url: url)
         request.httpMethod = rmRequest.httpMethod

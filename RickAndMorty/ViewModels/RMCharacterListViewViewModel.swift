@@ -69,7 +69,6 @@ final class RMCharacterListViewViewModel: NSObject {
         }
         
         isLoadingMoreCharacters = true
-        print("Fetching more characters...")
         guard let request = RMRequest(url: url) else {
             isLoadingMoreCharacters = false
             print("Failed to create request")
