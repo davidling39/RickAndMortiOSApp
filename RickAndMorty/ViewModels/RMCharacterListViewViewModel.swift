@@ -71,7 +71,6 @@ final class RMCharacterListViewViewModel: NSObject {
         isLoadingMoreCharacters = true
         guard let request = RMRequest(url: url) else {
             isLoadingMoreCharacters = false
-            print("Failed to create request")
             return
         }
         
@@ -79,6 +78,7 @@ final class RMCharacterListViewViewModel: NSObject {
             guard let strongSelf = self else {
                 return
             }
+            
             switch result {
             case .success(let responseModel):
                 let moreResults = responseModel.results
@@ -89,22 +89,22 @@ final class RMCharacterListViewViewModel: NSObject {
                 let newCount = moreResults.count
                 let total = originalCount + newCount
                 let startingIndex = total - newCount
-                let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex + newCount)).compactMap ({
+                let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex + newCount)).compactMap({
                     return IndexPath(row: $0, section: 0)
                 })
-                
                 strongSelf.characters.append(contentsOf: moreResults)
                 
                 DispatchQueue.main.async {
-                    strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd)
+                    strongSelf.delegate?.didLoadMoreCharacters(
+                        with: indexPathsToAdd
+                    )
                     strongSelf.isLoadingMoreCharacters = false
                 }
             case .failure(let failure):
                 print(String(describing: failure))
-                strongSelf.isLoadingMoreCharacters = false
+                self?.isLoadingMoreCharacters = false
             }
         }
-        // Fetch characters
     }
     
     public var shouldShowLoadMoreIndicator: Bool {
@@ -178,7 +178,7 @@ extension RMCharacterListViewViewModel: UIScrollViewDelegate {
               let url = URL(string: nextURLString) else {
             return
         }
-        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
+        Timer.scheduledTimer(withTimeInterval: 0, repeats: false) { [weak self] t in
             let offset = scrollView.contentOffset.y
             let totalContentHeight = scrollView.contentSize.height
             let totalScrollViewFixedHeight = scrollView.frame.size.height

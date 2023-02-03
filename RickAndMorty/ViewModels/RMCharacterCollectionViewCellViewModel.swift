@@ -45,6 +45,7 @@ final class RMCharacterCollectionViewCellViewModel: Hashable, Equatable {
         }
         let request = URLRequest(url: url)
         RMImageLoader.shared.downloadImage(url, completion: completion)
+        print(request)
     }
     
     
