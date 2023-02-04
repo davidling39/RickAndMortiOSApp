@@ -38,7 +38,7 @@ final class RMService {
                 completion(.failure(RMServiceError.FailedToGetData))
                 return
             }
-            
+
             /// Decode Response
             do {
                 let result = try JSONDecoder().decode(type.self, from: data)

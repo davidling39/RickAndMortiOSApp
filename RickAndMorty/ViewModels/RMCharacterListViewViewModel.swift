@@ -67,7 +67,6 @@ final class RMCharacterListViewViewModel: NSObject {
         guard !isLoadingMoreCharacters else {
             return
         }
-        
         isLoadingMoreCharacters = true
         guard let request = RMRequest(url: url) else {
             isLoadingMoreCharacters = false
@@ -78,7 +77,6 @@ final class RMCharacterListViewViewModel: NSObject {
             guard let strongSelf = self else {
                 return
             }
-            
             switch result {
             case .success(let responseModel):
                 let moreResults = responseModel.results
@@ -93,7 +91,7 @@ final class RMCharacterListViewViewModel: NSObject {
                     return IndexPath(row: $0, section: 0)
                 })
                 strongSelf.characters.append(contentsOf: moreResults)
-                
+                                
                 DispatchQueue.main.async {
                     strongSelf.delegate?.didLoadMoreCharacters(
                         with: indexPathsToAdd
@@ -173,11 +171,12 @@ extension RMCharacterListViewViewModel: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard shouldShowLoadMoreIndicator,
               !isLoadingMoreCharacters,
-              cellViewModels.isEmpty,
+              !cellViewModels.isEmpty,
               let nextURLString = apiInfo?.next,
               let url = URL(string: nextURLString) else {
             return
         }
+        
         Timer.scheduledTimer(withTimeInterval: 0, repeats: false) { [weak self] t in
             let offset = scrollView.contentOffset.y
             let totalContentHeight = scrollView.contentSize.height
